@@ -1,0 +1,3 @@
+npm install firebase --save
+
+var Firebase = require("firebase");
