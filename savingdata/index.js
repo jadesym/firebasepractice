@@ -181,3 +181,24 @@ scoresRef.orderByValue().on("value", function(snapshot) {
     console.log("The " + data.key() + " dinosaur's score is " + data.val());
   });
 });
+
+var ref = new Firebase("https://dinosaur-facts.firebaseio.com/dinosaurs");
+ref.child("stegosaurus").child("height").on("value", function(stegosaurusHeightSnapshot) {
+  var favoriteDinoHeight = stegosaurusHeightSnapshot.val();
+  console.log(favoriteDinoHeight);
+  var queryRef = ref.orderByChild("height").endAt(favoriteDinoHeight).limitToLast(2);
+  console.log(queryRef);
+	queryRef.on("value", function(querySnapshot) {
+	  console.log(querySnapshot);
+      if (querySnapshot.numChildren() == 2) {
+        // Data is ordered by increasing height, so we want the first entry
+        querySnapshot.forEach(function(dinoSnapshot) {
+          console.log("The dinosaur just shorter than the stegasaurus is " + dinoSnapshot.key());
+          // Returning true means that we will only loop through the forEach() one time
+          return true;
+        });
+      } else {
+        console.log("The stegosaurus is the shortest dino");
+      }
+  });
+});
