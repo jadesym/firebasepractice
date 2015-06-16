@@ -160,3 +160,24 @@ var proofChildAddedAndValue = function () {
 	  console.log("initial data loaded!", Object.keys(snap.val()).length === count);
 	});
 }
+
+var getDinosaursSortedByHeight = function () {
+	var ref = new Firebase("https://dinosaur-facts.firebaseio.com/dinosaurs");
+	ref.orderByChild("height").on("child_added", function(snapshot) {
+	  console.log(snapshot.key() + " was " + snapshot.val().height + " meters tall");
+	});
+}
+
+var getDinosaursSortedAlphabetically = function () {
+	var ref = new Firebase("https://dinosaur-facts.firebaseio.com/dinosaurs");
+	ref.orderByKey().on("child_added", function(snapshot) {
+	  console.log(snapshot.key());
+	});
+}
+
+var scoresRef = new Firebase("https://dinosaur-facts.firebaseio.com/scores");
+scoresRef.orderByValue().on("value", function(snapshot) {
+  snapshot.forEach(function(data) {
+    console.log("The " + data.key() + " dinosaur's score is " + data.val());
+  });
+});
