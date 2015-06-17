@@ -175,12 +175,14 @@ var getDinosaursSortedAlphabetically = function () {
 	});
 }
 
-var scoresRef = new Firebase("https://dinosaur-facts.firebaseio.com/scores");
-scoresRef.orderByValue().on("value", function(snapshot) {
-  snapshot.forEach(function(data) {
-    console.log("The " + data.key() + " dinosaur's score is " + data.val());
-  });
-});
+var getEachDinosaurScoreOrdered = function () {
+	var scoresRef = new Firebase("https://dinosaur-facts.firebaseio.com/scores");
+	scoresRef.orderByValue().on("value", function(snapshot) {
+	  snapshot.forEach(function(data) {
+	    console.log("The " + data.key() + " dinosaur's score is " + data.val());
+	  });
+	});	
+}
 
 var ref = new Firebase("https://dinosaur-facts.firebaseio.com/dinosaurs");
 ref.child("stegosaurus").child("height").on("value", function(stegosaurusHeightSnapshot) {
