@@ -52,8 +52,21 @@ var login = function(form) {
 	    console.log("Login Failed!", error);
 	    printResult(false, "Login Failed!" + error);
 	  } else {
-	    console.log("Authenticated successfully with payload:", authData);
-	    printResult(true, "Authenticated successfully with payload:" + authData);
+	  	console.log(authData.password.isTemporaryPassword);
+	  	console.log(authData.password.email); 	
+	  	console.log(authData.expires);
+	    console.log(authData.auth);
+	    console.log(authData.token);
+	    console.log(authData.provider);
+	    console.log(authData.uid);	
+	    if (authData.password.isTemporaryPassword) {
+	    	console.log("Authenticated successfully with temporary password:", authData);
+	    	printResult(true, "Authenticated successfully with temporary password:" + authData);
+	    } else {
+	    	console.log("Authenticated successfully with payload:", authData);
+	    	printResult(true, "Authenticated successfully with payload:" + authData);
+	    }
+	    
 	  }
 	}, {
 		remember: "sessionOnly"
@@ -128,3 +141,22 @@ var removeMyAccount = function(form) {
 	  }
 	});
 }
+
+var incrementHitCounter = function () {
+	var numHits = ref.child("siteHitCount");
+	// console.log(numHits);
+	// ref.on("value", function(snapshot) {
+	// 	console.log(snapshot.val());	
+	// }, function(error) {
+	// 	console.log("Could not get hit count: " + error.code);
+	// });
+	numHits.transaction(function (current_value) {
+	  	var hitCount = ((current_value || 0) + 1);
+	  	if (hitCount !== 1)
+	  		console.log(hitCount);
+		$("#hitCountNumber").html("Hit Count: " + hitCount.toString());
+		return hitCount;
+	});
+}
+
+incrementHitCounter();
