@@ -216,4 +216,74 @@ var checkIfMaryIsInAlpha = function () {
 	});	
 }
 
+// // we would probably save a profile when we register new users on our site
+// // we could also read the profile to see if it's null
+// // here we will just simulate this with an isNewUser boolean
+// var isNewUser = true;
+
+// var ref = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com");
+// ref.onAuth(function(authData) {
+//   if (authData && isNewUser) {
+//     // save the user's profile into Firebase so we can list users,
+//     // use them in Security and Firebase Rules, and show profiles
+//     ref.child("users").child(authData.uid).set({
+//       provider: authData.provider,
+//       name: getName(authData)
+//     });
+//   }
+// });
+
+// // Get username
+// // find a suitable name based on the meta info given by each provider
+// function getName(authData) {
+//   switch(authData.provider) {
+//      case 'password':
+//        return authData.password.email.replace(/@.*/, '');
+//      case 'twitter':
+//        return authData.twitter.displayName;
+//      case 'facebook':
+//        return authData.facebook.displayName;
+//   }
+// }
+
+// // POPUP PRIORITIZED OVER REDIRECT, BOTH IN CASE POPUP FAILS
+// // prefer pop-ups, so we don't navigate away from the page
+// ref.authWithOAuthPopup("google", function(error, authData) {
+//   if (error) {
+//     if (error.code === "TRANSPORT_UNAVAILABLE") {
+//       // fall-back to browser redirects, and pick up the session
+//       // automatically when we come back to the origin page
+//       ref.authWithOAuthRedirect("google", function(error) { /* ... */ });
+//     }
+//   } else if (authData) {
+//     // user authenticated with Firebase
+//   }
+// });
+
+
+// // ERROR CHECKING FOR LOGIN
+// var ref = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com");
+// ref.authWithPassword({
+//   email    : "bobtony@firebase.com",
+//   password : "invalid-password"
+// }, function(error, authData) {
+//   if (error) {
+//     switch (error.code) {
+//       case "INVALID_EMAIL":
+//         console.log("The specified user account email is invalid.");
+//         break;
+//       case "INVALID_PASSWORD":
+//         console.log("The specified user account password is incorrect.");
+//         break;
+//       case "INVALID_USER":
+//         console.log("The specified user account does not exist.");
+//         break;
+//       default:
+//         console.log("Error logging user in:", error);
+//     }
+//   } else {
+//     console.log("Authenticated successfully with payload:", authData);
+//   }
+// });
+
 
